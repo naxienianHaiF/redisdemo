@@ -77,6 +77,10 @@ public class DemoOne {
         } catch (Exception e){
             e.printStackTrace();
         } finally {
+            //关闭jedis
+            if (jedis != null){
+                jedis.close();
+            }
             //关闭连接池
             if (pool != null){
                 pool.close();
