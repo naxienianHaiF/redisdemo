@@ -22,7 +22,9 @@ public class SentinelOne {
         sentinels.add("39.105.93.97:26381");
 
         JedisPoolConfig config = new JedisPoolConfig();
+        //最大空闲连接数
         config.setMaxIdle(8);
+        //最大连接数
         config.setMaxTotal(10);
 
         JedisSentinelPool pool = new JedisSentinelPool("mymaster",sentinels, config);
@@ -34,6 +36,7 @@ public class SentinelOne {
             String result = jedis.set("sentinel","test redis sentinel");
             System.out.println("the result is "+ result);
             System.out.println(jedis.get("sentinel"));
+            System.out.println("value为中文的测试======>"+jedis.get("mysentinel"));
         } catch (Exception e){
             e.printStackTrace();
         } finally {
