@@ -26,6 +26,13 @@ public class RedisLock {
      */
     public static boolean tryGetDistributedLock(Jedis jedis, String lockKey, String requestId, int expireTime) {
 
+        /**
+         * nxxx NX|XX, NX -- Only set the key if it does not already exist. XX
+         * -- Only set the key if it already exist.
+         *
+         * expx EX|PX, expire time units: EX = seconds; PX = milliseconds
+         * time expire time in the units of {@param #expx}
+         */
         String result = jedis.set(lockKey, requestId, SET_IF_NOT_EXIST, SET_WITH_EXPIRE_TIME, expireTime);
 
         if (LOCK_SUCCESS.equals(result)) {
